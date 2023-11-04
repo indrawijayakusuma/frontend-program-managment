@@ -63,7 +63,7 @@ const HomePage = () => {
       //   "reader",
       //   {
       //     qrbox: {
-      //       width: 250,
+      //        width: 250,
       //       height: 250,
       //     },
       //     fps: 10,
