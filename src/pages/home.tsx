@@ -31,18 +31,27 @@ const menus = [
 ];
 
 const HomePage = () => {
-  let scanner: Html5QrcodeScanner;
-  let qrCodeSuccessCallback;
+  // let scanner: Html5QrcodeScanner;
+  let html5QrCode: Html5Qrcode;
   useEffect(() => {
-    if (!scanner?.getState) {
-      const html5QrCode = new Html5Qrcode("reader1");
+    if (!html5QrCode?.getState) {
+      html5QrCode = new Html5Qrcode("reader1");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      qrCodeSuccessCallback = (decodedText: any, decodedResult: any) => {
+      const qrCodeSuccessCallback = (decodedText: any, decodedResult: any) => {
         /* handle success */
         console.log(decodedText, decodedResult);
       };
-      const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+      const config = {
+        qrbox: {
+          width: 250,
+          height: 250,
+        },
+        fps: 10,
+        rememberLastUsedCamera: true,
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+        aspectRatio: 1.7777778,
+      };
 
       // If you want to prefer back camera
       html5QrCode.start(
@@ -54,30 +63,30 @@ const HomePage = () => {
         }
       );
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      scanner = new Html5QrcodeScanner(
-        "reader",
-        {
-          qrbox: {
-            width: 250,
-            height: 250,
-          },
-          fps: 10,
-          rememberLastUsedCamera: true,
-          supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
-          aspectRatio: 1.7777778,
-        },
-        false
-      );
+      // scanner = new Html5QrcodeScanner(
+      //   "reader",
+      //   {
+      //     qrbox: {
+      //       width: 250,
+      //       height: 250,
+      //     },
+      //     fps: 10,
+      //     rememberLastUsedCamera: true,
+      //     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+      //     aspectRatio: 1.7777778,
+      //   },
+      //   false
+      // );
 
-      scanner.render(
-        (result) => {
-          scanner.clear();
-          console.log(result);
-        },
-        (e) => {
-          console.log(e);
-        }
-      );
+      // scanner.render(
+      //   (result) => {
+      //     scanner.clear();
+      //     console.log(result);
+      //   },
+      //   (e) => {
+      //     console.log(e);
+      //   }
+      // );
     }
   }, []);
 
@@ -107,8 +116,8 @@ const HomePage = () => {
         <div className=" grow w-full">
           <ScrollArea className="w-full h-screen text-justify py-5 px-10">
             <Outlet />
-            <div className="w-full" id="reader"></div>
-            <div className="w-full" id="reader1"></div>
+            {/* <div className="w-full" id="reader"></div> */}
+            <div className="w-full lg:w-1/2" id="reader1"></div>
           </ScrollArea>
         </div>
       </div>
