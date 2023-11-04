@@ -8,6 +8,7 @@ import VisitorPage from "./pages/visitor";
 import MerchantPage from "./pages/merchant";
 import ReedemPage from "./pages/redeemCode";
 import WinnerPage from "./pages/winner";
+import HomeUserPage from "./pages/homeUser";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
         element: <WinnerPage />,
       },
     ],
+  },
+  {
+    path: "/home",
+    element: <HomeUserPage />,
+  },
+  {
+    path: "/app-visitor",
+    element: <h1>halo world</h1>,
   },
 ]);
 

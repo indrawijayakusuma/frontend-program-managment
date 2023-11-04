@@ -1,5 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavLink, Outlet } from "react-router-dom";
+import { Html5QrcodeScanType, Html5QrcodeScanner } from "html5-qrcode";
+import { useEffect } from "react";
 
 const menus = [
   {
@@ -25,10 +27,41 @@ const menus = [
 ];
 
 const HomePage = () => {
+  let scanner: Html5QrcodeScanner;
+  useEffect(() => {
+    if (!scanner?.getState) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      scanner = new Html5QrcodeScanner(
+        "reader",
+        {
+          qrbox: {
+            width: 250,
+            height: 250,
+          },
+          fps: 10,
+          rememberLastUsedCamera: true,
+          supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+          aspectRatio: 1.7777778,
+        },
+        false
+      );
+
+      scanner.render(
+        (result) => {
+          scanner.clear();
+          console.log(result);
+        },
+        (e) => {
+          console.log(e);
+        }
+      );
+    }
+  }, []);
+
   return (
     <>
       <div className="flex min-h-screen">
-        <div className="w-[22%] flex flex-col border-r px-5 py-10 gap-1.5">
+        <div className="w-[22%] md:flex flex-col border-r px-5 py-10 gap-1.5 hidden">
           <h2 className="scroll-m-20 border-b pb-4 text-3xl font-semibold tracking-tight first:mt-0">
             The Program
           </h2>
@@ -51,6 +84,7 @@ const HomePage = () => {
         <div className=" grow w-full">
           <ScrollArea className="w-full h-screen text-justify py-5 px-10">
             <Outlet />
+            <div className="w-1/2" id="reader"></div>
           </ScrollArea>
         </div>
       </div>
