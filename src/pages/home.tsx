@@ -116,7 +116,7 @@ const HomePage = () => {
         <div className=" grow w-full">
           <ScrollArea className="w-full h-screen text-justify py-5 px-10">
             <Outlet />
-            {/* <div className="w-full" id="reader"></div> */}
+            {/*  <div className="w-full" id="reader"></div> */}
             <div className="w-full lg:w-1/2" id="reader1"></div>
           </ScrollArea>
         </div>
