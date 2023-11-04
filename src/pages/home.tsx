@@ -1,6 +1,10 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavLink, Outlet } from "react-router-dom";
-import { Html5QrcodeScanType, Html5QrcodeScanner } from "html5-qrcode";
+import {
+  Html5Qrcode,
+  Html5QrcodeScanType,
+  Html5QrcodeScanner,
+} from "html5-qrcode";
 import { useEffect } from "react";
 
 const menus = [
@@ -28,8 +32,27 @@ const menus = [
 
 const HomePage = () => {
   let scanner: Html5QrcodeScanner;
+  let qrCodeSuccessCallback;
   useEffect(() => {
     if (!scanner?.getState) {
+      const html5QrCode = new Html5Qrcode("reader1");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      qrCodeSuccessCallback = (decodedText: any, decodedResult: any) => {
+        /* handle success */
+        console.log(decodedText, decodedResult);
+      };
+      const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+      // If you want to prefer back camera
+      html5QrCode.start(
+        { facingMode: "environment" },
+        config,
+        qrCodeSuccessCallback,
+        (e) => {
+          console.log(e);
+        }
+      );
       // eslint-disable-next-line react-hooks/exhaustive-deps
       scanner = new Html5QrcodeScanner(
         "reader",
@@ -85,6 +108,7 @@ const HomePage = () => {
           <ScrollArea className="w-full h-screen text-justify py-5 px-10">
             <Outlet />
             <div className="w-full" id="reader"></div>
+            <div className="w-full" id="reader1"></div>
           </ScrollArea>
         </div>
       </div>
