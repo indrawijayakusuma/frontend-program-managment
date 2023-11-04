@@ -84,7 +84,7 @@ const HomePage = () => {
         <div className=" grow w-full">
           <ScrollArea className="w-full h-screen text-justify py-5 px-10">
             <Outlet />
-            <div className="w-1/2" id="reader"></div>
+            <div className="w-full" id="reader"></div>
           </ScrollArea>
         </div>
       </div>
