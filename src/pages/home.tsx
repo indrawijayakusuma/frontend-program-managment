@@ -1,10 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavLink, Outlet } from "react-router-dom";
-import {
-  Html5Qrcode,
-  Html5QrcodeScanType,
-  Html5QrcodeScanner,
-} from "html5-qrcode";
+import { Html5Qrcode, Html5QrcodeScanType } from "html5-qrcode";
 import { useEffect } from "react";
 
 const menus = [
