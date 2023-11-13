@@ -5,24 +5,38 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/home";
 import ErrorPage from "./pages/error";
 import VisitorPage from "./pages/visitor";
-import MerchantPage from "./pages/merchant";
+import MerchantListPage from "./pages/merchantList";
 import ReedemPage from "./pages/redeemCode";
 import WinnerPage from "./pages/winner";
 import HomeUserPage from "./pages/homeUser";
+import WinnerFormPage from "./pages/winnerForm";
+import { ThemeProvider } from "@/components/theme-provider";
+import VisitorListPage from "./pages/visitorList";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <HomePage />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/visitor",
+        path: "/",
+        element: <h1>home</h1>,
+      },
+      {
+        path: "/visitor/list",
+        element: <VisitorListPage />,
+      },
+      {
+        path: "/visitor/create",
         element: <VisitorPage />,
       },
       {
-        path: "/merchant",
-        element: <MerchantPage />,
+        path: "/merchant/list",
+        element: <MerchantListPage />,
+      },
+      {
+        path: "/merchant/create",
+        element: <h1>merchant create</h1>,
       },
       {
         path: "/redeem-code",
@@ -39,13 +53,15 @@ const router = createBrowserRouter([
     element: <HomeUserPage />,
   },
   {
-    path: "/app-visitor",
-    element: <h1>halo world</h1>,
+    path: "/winner/:code",
+    element: <WinnerFormPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );

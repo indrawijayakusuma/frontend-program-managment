@@ -34,8 +34,9 @@ const formSchema = z.object({
 });
 
 const VisitorPage = () => {
-  useEffect(() => {}, []);
-
+  useEffect(() => {
+    document.title = "visitor";
+  }, []);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,88 +57,116 @@ const VisitorPage = () => {
     };
     try {
       await postVisitor(data);
-      console.log(data);
-      window.location.href = "/visitor";
+      window.location.href = "/visitor/create";
     } catch (error) {
-      console.log(error);
+      alert("data sudah di input");
     }
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen gap-5 mt-20">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        Visitor Page
+    <div className="flex flex-col gap-5 mb-10 mt-20">
+      <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-10">
+        Create a New Visitor
       </h1>
-      <div className="w-1/2">
+      <div className="w-[100%]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Name" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="rekening"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Account Number</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Rekening" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="setoran"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Setoran</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Setoran" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="ktp"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>KTP</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="Ktp" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="text-white">
-              Submit
-            </Button>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex flex-col gap-1">
+                <p className="text-lg font-bold">Personal Information</p>
+                <p className="text-sm font-medium text-foreground/50">
+                  Input your real name and KTP number..
+                </p>
+              </div>
+              <div className="col-span-2  p-6 rounded-radius shadow-custom bg-card flex flex-col gap-6 border border-border/40">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Name" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="ktp"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>KTP</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="Ktp" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex flex-col gap-1">
+                <p className="text-lg font-bold">Account Information</p>
+                <p className="text-sm font-medium text-foreground/50">
+                  Input your account number and Deposit..
+                </p>
+              </div>
+              <div className="col-span-2 border p-6 rounded-radius shadow-custom bg-card flex flex-col gap-6 border-border/40">
+                <FormField
+                  control={form.control}
+                  name="rekening"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Account Number</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Rekening"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="setoran"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Setoran</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="Setoran" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            <div className="w-full flex justify-end">
+              <Button
+                type="submit"
+                className="text-primaryforeground py-5 px-10"
+              >
+                Submit
+              </Button>
+            </div>
           </form>
         </Form>
       </div>

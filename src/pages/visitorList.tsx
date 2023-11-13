@@ -1,3 +1,5 @@
+import { Input } from "@/components/ui/input";
+import { BsDot } from "react-icons/bs";
 import {
   Table,
   TableBody,
@@ -7,74 +9,37 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllRedeemCode } from "@/services/redeemCodeService";
-import { useEffect, useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import { Input } from "@/components/ui/input";
-import { BsDot } from "react-icons/bs";
-
-// const dummyData = [
-//   {
-//     code: "ABC123",
-//     name: "John Doe",
-//     status: "Redeemed",
-//     rekening: "12345678",
-//   },
-//   {
-//     code: "DEF456",
-//     name: "Jane Smith",
-//     status: "Pending",
-//     rekening: "87654321",
-//   },
-//   {
-//     code: "GHI789",
-//     name: "Alex Johnson",
-//     status: "Redeemed",
-//     rekening: "98761234",
-//   },
-//   {
-//     code: "JKL012",
-//     name: "Emily Brown",
-//     status: "Redeemed",
-//     rekening: "56782341",
-//   },
-//   {
-//     code: "EFG123",
-//     name: "Daniel Taylor",
-//     status: "Pending",
-//     rekening: "98762341",
-//   },
-//   {
-//     code: "HIJ456",
-//     name: "Sophia Clark",
-//     status: "Redeemed",
-//     rekening: "34561278",
-//   },
-// ];
+import { useEffect, useState } from "react";
+import { getAllVisitor } from "@/services/visitorService";
+import { showFormattedNumber } from "@/utils";
 
 interface Provider {
-  code: string;
-  isUsed: boolean;
+  no_ktp: string;
   name: string;
   rekening: string;
+  setoran: number;
 }
 
-const ReedemPage = () => {
-  const [reedeem, setReedeem] = useState<Provider[]>([]);
+const VisitorListPage = () => {
+  const [visitor, setVisitor] = useState<Provider[]>([]);
 
   useEffect(() => {
-    document.title = "reedeem page";
-    const getReedeem = async () => {
+    document.title = "visitor-list";
+
+    const getVisitorData = async () => {
       try {
-        const response = (await getAllRedeemCode()).data;
-        console.log(response.data);
-        setReedeem(response.data);
+        const response = (await getAllVisitor()).data;
+        console.log(response.data.visitor);
+        setVisitor(response.data.visitor);
       } catch (error) {
         console.log(error);
       }
     };
-    getReedeem();
+
+    getVisitorData();
   }, []);
+
   return (
     <div className="flex flex-col gap-10 mb-10 mt-14">
       <div>
@@ -109,25 +74,31 @@ const ReedemPage = () => {
           </TableCaption>
           <TableHeader className="bg-[#F4F6F8] text-slate-500">
             <TableRow className="">
-              <TableHead className="w-[150px]">Reedem code</TableHead>
+              <TableHead className="w-[150px]">KTP</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>status</TableHead>
-              <TableHead className="text-right">Rekening</TableHead>
+              <TableHead>Rekening</TableHead>
+              <TableHead className="text-right">Setoran</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {reedeem.map((reedeem) => (
-              <TableRow key={reedeem.code}>
-                <TableCell className="font-medium">{reedeem.code}</TableCell>
-                <TableCell>{reedeem.name}</TableCell>
-                <TableCell>active</TableCell>
-                <TableCell className="text-right">{reedeem.rekening}</TableCell>
-              </TableRow>
-            ))}
+            {visitor.length > 0 &&
+              visitor.map((visitor) => (
+                <TableRow key={visitor.no_ktp}>
+                  <TableCell className="font-medium">
+                    {visitor.no_ktp}
+                  </TableCell>
+                  <TableCell>{visitor.name}</TableCell>
+                  <TableCell>{visitor.rekening}</TableCell>
+                  <TableCell className="text-right">
+                    {showFormattedNumber(visitor.setoran)}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </div>
     </div>
   );
 };
-export default ReedemPage;
+
+export default VisitorListPage;

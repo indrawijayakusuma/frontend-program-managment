@@ -18,6 +18,18 @@ export default {
         primary: "hsl(var(--primary))",
         muted: "hsl(var(--muted))",
         hover: "hsl(var(--accent))",
+        accent: "hsl(var(--accent))",
+        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border))",
+        card: "hsl(var(--card))",
+        background: "hsl(var(--background))",
+        primaryforeground: "hsl(var(--primary-foreground))",
+      },
+      boxShadow: {
+        'custom': '0 10px 100px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);',
+      },
+      borderRadius: {
+        'radius': 'var(--radius)',
       },
       keyframes: {
         "accordion-down": {
