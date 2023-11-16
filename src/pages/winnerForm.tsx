@@ -20,11 +20,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCustomerByRedeemCode } from "@/services/customerService";
 import { Label } from "@radix-ui/react-label";
-import { getWinner, postWinner } from "@/services/winnerService";
+import { postWinner } from "@/services/winnerService";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -47,7 +47,6 @@ const WinnerFormPage = () => {
   }
   const { code = "" } = useParams();
   const [data, setData] = useState<Provider>();
-  const [gift, setGift] = useState([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
