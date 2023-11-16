@@ -13,45 +13,6 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { BsDot } from "react-icons/bs";
 
-// const dummyData = [
-//   {
-//     code: "ABC123",
-//     name: "John Doe",
-//     status: "Redeemed",
-//     rekening: "12345678",
-//   },
-//   {
-//     code: "DEF456",
-//     name: "Jane Smith",
-//     status: "Pending",
-//     rekening: "87654321",
-//   },
-//   {
-//     code: "GHI789",
-//     name: "Alex Johnson",
-//     status: "Redeemed",
-//     rekening: "98761234",
-//   },
-//   {
-//     code: "JKL012",
-//     name: "Emily Brown",
-//     status: "Redeemed",
-//     rekening: "56782341",
-//   },
-//   {
-//     code: "EFG123",
-//     name: "Daniel Taylor",
-//     status: "Pending",
-//     rekening: "98762341",
-//   },
-//   {
-//     code: "HIJ456",
-//     name: "Sophia Clark",
-//     status: "Redeemed",
-//     rekening: "34561278",
-//   },
-// ];
-
 interface Provider {
   code: string;
   isUsed: boolean;
@@ -107,11 +68,11 @@ const ReedemPage = () => {
               </div>
             </div>
           </TableCaption>
-          <TableHeader className="bg-[#F4F6F8] text-slate-500">
+          <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
             <TableRow className="">
               <TableHead className="w-[150px]">Reedem code</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>status</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead className="text-right">Rekening</TableHead>
             </TableRow>
           </TableHeader>

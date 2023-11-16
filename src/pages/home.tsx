@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavLink, Outlet } from "react-router-dom";
-import { Html5Qrcode, Html5QrcodeScanType } from "html5-qrcode";
 import { useEffect } from "react";
 import {
   Accordion,
@@ -15,14 +14,19 @@ import { BsDot } from "react-icons/bs";
 import { GiTrophyCup } from "react-icons/gi";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { MdOutlineStorefront } from "react-icons/md";
-
 import { HiQrcode } from "react-icons/hi";
+import { BiQrScan } from "react-icons/bi";
 
 const menus = [
   {
     name: "Dashboard",
     path: "/",
     icon: <AiOutlineDashboard className="w-6 h-6" />,
+  },
+  {
+    name: "QR Code Scanner",
+    path: "/scan-qr",
+    icon: <BiQrScan className="w-6 h-6" />,
   },
   {
     name: "Visitor",
@@ -75,43 +79,6 @@ const menus = [
 ];
 
 const HomePage = () => {
-  let html5QrCode: Html5Qrcode;
-  useEffect(() => {
-    if (!html5QrCode?.getState) {
-      html5QrCode = new Html5Qrcode("reader1");
-      const qrCodeSuccessCallback = (decodedText: string) => {
-        window.location.href = decodedText;
-        html5QrCode
-          .stop()
-          .then(() => {
-            console.log("QR Code scanning is stopped");
-          })
-          .catch((err: string) => {
-            console.log(err);
-          });
-      };
-      const config = {
-        qrbox: {
-          width: 250,
-          height: 250,
-        },
-        fps: 1000,
-        rememberLastUsedCamera: true,
-        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
-        aspectRatio: 1.7777778,
-      };
-
-      html5QrCode.start(
-        { facingMode: "environment" },
-        config,
-        qrCodeSuccessCallback,
-        (e) => {
-          console.log(e);
-        }
-      );
-    }
-  }, []);
-
   useEffect(() => {
     document.title = "dashboard";
   }, []);
@@ -193,9 +160,8 @@ const HomePage = () => {
           <div className="flex items-center pr-3 justify-end backdrop-blur-md bg-background/30 z-10 absolute w-full h-14">
             <ModeToggle />
           </div>
-          <ScrollArea className="w-full h-[100vh] text-justify px-10">
+          <ScrollArea className="w-full h-[100vh] text-justify lg:px-10 px-5">
             <Outlet />
-            <div className="w-full lg:w-1/2" id="reader1"></div>
           </ScrollArea>
         </div>
       </div>

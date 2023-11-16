@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -44,11 +45,11 @@ const WinnerPage = () => {
     <div className="flex flex-col gap-10 mb-10 mt-14">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
-          Redeem Code
+          Winners
         </h1>
         <div className="flex flex-row items-center">
           Dashboard <BsDot className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-500">Redeem Code</span>
+          <span className="text-slate-500">Winners</span>
         </div>
       </div>
       <div>
@@ -59,41 +60,44 @@ const WinnerPage = () => {
             placeholder="Search..."
           />
         </div>
-        <Table className="shadow-custom px-6 py-3 border-b">
-          <TableCaption className="bg-background shadow-custom pr-10">
-            <div className="flex flex-row justify-end my-5 gap-6 font-medium">
-              <p>
-                Row Per Page: <span className="ml-2">5</span>
-              </p>
-              <p>1-5 of 20</p>
-              <div className="flex flex-row gap-3">
-                <MdKeyboardArrowLeft className="w-6 h-6" />
-                <MdKeyboardArrowRight className="w-6 h-6" />
+        <ScrollArea className="w-96 whitespace-nowrap rounded-md border">
+          <Table className="shadow-custom px-6 py-3 border-b">
+            <TableCaption className="bg-background shadow-custom pr-10">
+              <div className="flex flex-row justify-end my-5 gap-6 font-medium">
+                <p>
+                  Row Per Page: <span className="ml-2">5</span>
+                </p>
+                <p>1-5 of 20</p>
+                <div className="flex flex-row gap-3">
+                  <MdKeyboardArrowLeft className="w-6 h-6" />
+                  <MdKeyboardArrowRight className="w-6 h-6" />
+                </div>
               </div>
-            </div>
-          </TableCaption>
-          <TableHeader className="bg-[#F4F6F8] text-slate-500">
-            <TableRow className="">
-              <TableHead className="w-[150px]">Name</TableHead>
-              <TableHead>Rekening</TableHead>
-              <TableHead>gift</TableHead>
-              <TableHead className="text-right">date</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {gift.length > 0 &&
-              gift.map((winner) => (
-                <TableRow key={winner.date}>
-                  <TableCell className="font-medium">{winner.name}</TableCell>
-                  <TableCell>{winner.rekening}</TableCell>
-                  <TableCell>{winner.gift}</TableCell>
-                  <TableCell className="text-right">
-                    {showFormattedDate(winner.date)}
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+            </TableCaption>
+            <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
+              <TableRow className="">
+                <TableHead className="w-[150px]">Name</TableHead>
+                <TableHead>Rekening</TableHead>
+                <TableHead>Gift</TableHead>
+                <TableHead className="text-right">Date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {gift.length > 0 &&
+                gift.map((winner) => (
+                  <TableRow key={winner.date}>
+                    <TableCell className="font-medium">{winner.name}</TableCell>
+                    <TableCell>{winner.rekening}</TableCell>
+                    <TableCell>{winner.gift}</TableCell>
+                    <TableCell className="text-right">
+                      {showFormattedDate(winner.date)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </div>
     </div>
   );

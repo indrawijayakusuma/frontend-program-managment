@@ -44,11 +44,11 @@ const VisitorListPage = () => {
     <div className="flex flex-col gap-10 mb-10 mt-14">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
-          Redeem Code
+          Visitors
         </h1>
         <div className="flex flex-row items-center">
           Dashboard <BsDot className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-500">Redeem Code</span>
+          <span className="text-slate-500">Visitors</span>
         </div>
       </div>
       <div>
@@ -72,7 +72,7 @@ const VisitorListPage = () => {
               </div>
             </div>
           </TableCaption>
-          <TableHeader className="bg-[#F4F6F8] text-slate-500">
+          <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
             <TableRow className="">
               <TableHead className="w-[150px]">KTP</TableHead>
               <TableHead>Name</TableHead>

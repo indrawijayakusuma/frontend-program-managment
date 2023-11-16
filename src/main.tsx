@@ -8,10 +8,12 @@ import VisitorPage from "./pages/visitor";
 import MerchantListPage from "./pages/merchantList";
 import ReedemPage from "./pages/redeemCode";
 import WinnerPage from "./pages/winner";
-import HomeUserPage from "./pages/homeUser";
 import WinnerFormPage from "./pages/winnerForm";
 import { ThemeProvider } from "@/components/theme-provider";
 import VisitorListPage from "./pages/visitorList";
+import Scanqr from "./pages/scanQr";
+import GenerateQrPage from "./pages/generate-qr";
+import HomeUserPage from "./pages/home-user";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <h1>home</h1>,
+      },
+      {
+        path: "/scan-qr",
+        element: <Scanqr />,
       },
       {
         path: "/visitor/list",
@@ -51,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <HomeUserPage />,
+  },
+  {
+    path: "/generate-qr",
+    element: <GenerateQrPage />,
   },
   {
     path: "/winner/:code",
