@@ -14,7 +14,6 @@ import VisitorListPage from "./pages/visitorList";
 import Scanqr from "./pages/scanQr";
 import GenerateQrPage from "./pages/generate-qr";
 import HomeUserPage from "./pages/home-user";
-import { TableDemo } from "./pages/test";
 
 const router = createBrowserRouter([
   {
@@ -69,7 +68,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/test",
-    element: <TableDemo />,
+    element: <h1>test</h1>,
   },
 ]);
 
