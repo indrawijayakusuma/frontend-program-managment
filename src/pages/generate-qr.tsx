@@ -4,6 +4,18 @@ import { getRedeemCode } from "@/services/redeemCodeService";
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { Link } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { HiMenuAlt2 } from "react-icons/hi";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Separator } from "@/components/ui/separator";
 
 const GenerateQrPage = () => {
   const [ktp, setKtp] = useState("");
@@ -37,40 +49,36 @@ const GenerateQrPage = () => {
   }, [ktp]);
 
   return (
-    <>
-      <nav className="bg-background border border-border/40 dark:border-border shadow-custom">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link to="/home" className="flex items-center">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/2560px-BNI_logo.svg.png"
-              className="h-8 mr-3"
-              alt="BNI Logo"
-            />
-          </Link>
-          <button
-            data-collapse-toggle="navbar-solid-bg"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            aria-controls="navbar-solid-bg"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+    <div className="relative">
+      <div className="flex fixed items-center lg:px-12 pr-6 pl-6 justify-between lg:border-border/40 dark:border-border/90 border-b-border border-b lg:justify-between backdrop-blur-md bg-background/30 z-10 w-full h-14 lg:h-16">
+        <div className="lg:hidden">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="">
+              <div>
+                <HiMenuAlt2 className="w-7 h-7" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-background">
+              <DropdownMenuLabel>Menu</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <Link to="/home">
+                  <DropdownMenuItem>Home</DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator />
+                <Link to={"/generate-qr"}>
+                  <DropdownMenuItem>Play</DropdownMenuItem>
+                </Link>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/2560px-BNI_logo.svg.png"
+          className="h-8 mr-3"
+          alt="BNI Logo"
+        />
+        <div className="flex flex-row gap-5 items-center">
           <div
             className="hidden w-full md:block md:w-auto"
             id="navbar-solid-bg"
@@ -79,7 +87,7 @@ const GenerateQrPage = () => {
               <li>
                 <Link
                   to="/home"
-                  className=" block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0"
+                  className=" block py-2 text-foreground pl-3 pr-4 rounded md:bg-transparent md:p-0"
                   aria-current="page"
                 >
                   Home
@@ -88,17 +96,21 @@ const GenerateQrPage = () => {
               <li>
                 <Link
                   to="/generate-qr"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF6600] md:p-0"
+                  className="block py-2 pl-3 pr-4 text-foreground rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
                 >
                   play
                 </Link>
               </li>
             </ul>
           </div>
+          <div className="flex h-5 items-center space-x-4 text-sm">
+            <Separator orientation="vertical" className="hidden lg:block" />
+            <ModeToggle />
+          </div>
         </div>
-      </nav>
+      </div>
 
-      <div className=" flex justify-center min-h-screen mt-14">
+      <div className=" flex justify-center min-h-screen lg:pt-28 pt-20">
         <div className="border px-4 lg:w-[30%] w-[90%] h-full border-border/40 rounded-radius py-10 lg:px-10 shadow-custom">
           <div className="w-full flex-col">
             <h1 className="scroll-m-20 text-center text-xl font-bold tracking-tight lg:text-2xl mb-1">
@@ -135,7 +147,7 @@ const GenerateQrPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

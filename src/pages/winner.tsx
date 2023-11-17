@@ -15,6 +15,57 @@ import { useEffect, useState } from "react";
 import { BsDot } from "react-icons/bs";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
+// const data = [
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+//   {
+//     name: "name",
+//     rekening: "rekening",
+//     gift: "gift",
+//     date: "date",
+//   },
+// ];
+
 interface Provider {
   name: string;
   rekening: string;
@@ -42,7 +93,7 @@ const WinnerPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-10 mb-10 mt-14">
+    <div className="flex flex-col gap-10 mb-10 mt-20">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
           Winners
@@ -55,25 +106,25 @@ const WinnerPage = () => {
       <div>
         <div className="flex justify-start pl-5 border-x border-t rounded-t-radius border-border/40 py-5">
           <Input
-            className="w-[30%] py-6 rounded-radius"
+            className="lg:w-[30%] w-[60%] py-6 rounded-radius"
             type="email"
             placeholder="Search..."
           />
         </div>
-        <ScrollArea className="w-96 whitespace-nowrap rounded-md border">
-          <Table className="shadow-custom px-6 py-3 border-b">
-            <TableCaption className="bg-background shadow-custom pr-10">
-              <div className="flex flex-row justify-end my-5 gap-6 font-medium">
-                <p>
-                  Row Per Page: <span className="ml-2">5</span>
-                </p>
-                <p>1-5 of 20</p>
-                <div className="flex flex-row gap-3">
-                  <MdKeyboardArrowLeft className="w-6 h-6" />
-                  <MdKeyboardArrowRight className="w-6 h-6" />
-                </div>
+        <Table className="shadow-custom px-6 py-3 border-b">
+          <TableCaption className="bg-background shadow-custom pr-10">
+            <div className="flex flex-row justify-end my-5 gap-6 font-medium">
+              <p>
+                Row Per Page: <span className="ml-2">5</span>
+              </p>
+              <p>1-5 of 20</p>
+              <div className="flex flex-row gap-3">
+                <MdKeyboardArrowLeft className="w-6 h-6" />
+                <MdKeyboardArrowRight className="w-6 h-6" />
               </div>
-            </TableCaption>
+            </div>
+          </TableCaption>
+          <ScrollArea className="w-[89vw] lg:w-full whitespace-nowrap">
             <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
               <TableRow className="">
                 <TableHead className="w-[150px]">Name</TableHead>
@@ -95,9 +146,9 @@ const WinnerPage = () => {
                   </TableRow>
                 ))}
             </TableBody>
-          </Table>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </Table>
       </div>
     </div>
   );

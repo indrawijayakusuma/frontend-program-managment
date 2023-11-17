@@ -51,7 +51,7 @@ const WinnerFormPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: async () => {
-      return fetch(`http://localhost:3000/customers/${code}`)
+      return fetch(`http://localhost:5000/customers/${code}`)
         .then((res) => res.json())
         .then((json) => {
           return {

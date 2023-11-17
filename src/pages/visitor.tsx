@@ -67,7 +67,7 @@ const VisitorPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-10 mb-10 mt-14">
+    <div className="flex flex-col gap-10 mb-10 mt-20">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
           Visitors

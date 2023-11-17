@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { BsDot } from "react-icons/bs";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface Provider {
   code: string;
@@ -37,7 +38,7 @@ const ReedemPage = () => {
     getReedeem();
   }, []);
   return (
-    <div className="flex flex-col gap-10 mb-10 mt-14">
+    <div className="flex flex-col gap-10 mb-10 mt-20">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
           Redeem Code
@@ -50,7 +51,7 @@ const ReedemPage = () => {
       <div>
         <div className="flex justify-start pl-5 border-x border-t rounded-t-radius border-border/40 py-5">
           <Input
-            className="w-[30%] py-6 rounded-radius"
+            className="lg:w-[30%] w-[60%] py-6 rounded-radius"
             type="email"
             placeholder="Search..."
           />
@@ -68,24 +69,32 @@ const ReedemPage = () => {
               </div>
             </div>
           </TableCaption>
-          <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
-            <TableRow className="">
-              <TableHead className="w-[150px]">Reedem code</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Rekening</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {reedeem.map((reedeem) => (
-              <TableRow key={reedeem.code}>
-                <TableCell className="font-medium">{reedeem.code}</TableCell>
-                <TableCell>{reedeem.name}</TableCell>
-                <TableCell>active</TableCell>
-                <TableCell className="text-right">{reedeem.rekening}</TableCell>
+          <ScrollArea className="w-[89vw] lg:w-full whitespace-nowrap">
+            <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
+              <TableRow className="">
+                <TableHead className="w-[150px]">Reedem code</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Rekening</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
+            </TableHeader>
+            <TableBody>
+              {reedeem.length > 0 &&
+                reedeem.map((reedeem) => (
+                  <TableRow key={reedeem.code}>
+                    <TableCell className="font-medium">
+                      {reedeem.code}
+                    </TableCell>
+                    <TableCell>{reedeem.name}</TableCell>
+                    <TableCell>active</TableCell>
+                    <TableCell className="text-right">
+                      {reedeem.rekening}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </Table>
       </div>
     </div>

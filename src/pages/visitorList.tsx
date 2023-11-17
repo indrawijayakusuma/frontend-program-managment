@@ -13,6 +13,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getAllVisitor } from "@/services/visitorService";
 import { showFormattedNumber } from "@/utils";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface Provider {
   no_ktp: string;
@@ -41,7 +42,7 @@ const VisitorListPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-10 mb-10 mt-14">
+    <div className="flex flex-col gap-10 mb-10 mt-20">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
           Visitors
@@ -54,7 +55,7 @@ const VisitorListPage = () => {
       <div>
         <div className="flex justify-start pl-5 border-x border-t rounded-t-radius border-border/40 py-5">
           <Input
-            className="w-[30%] py-6 rounded-radius"
+            className="lg:w-[30%] w-[60%] py-6 rounded-radius"
             type="email"
             placeholder="Search..."
           />
@@ -72,29 +73,32 @@ const VisitorListPage = () => {
               </div>
             </div>
           </TableCaption>
-          <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
-            <TableRow className="">
-              <TableHead className="w-[150px]">KTP</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Rekening</TableHead>
-              <TableHead className="text-right">Setoran</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {visitor.length > 0 &&
-              visitor.map((visitor) => (
-                <TableRow key={visitor.no_ktp}>
-                  <TableCell className="font-medium">
-                    {visitor.no_ktp}
-                  </TableCell>
-                  <TableCell>{visitor.name}</TableCell>
-                  <TableCell>{visitor.rekening}</TableCell>
-                  <TableCell className="text-right">
-                    {showFormattedNumber(visitor.setoran)}
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
+          <ScrollArea className="w-[89vw] lg:w-full whitespace-nowrap">
+            <TableHeader className="bg-[#F4F6F8] text-slate-500 dark:bg-background">
+              <TableRow className="">
+                <TableHead className="w-[150px]">KTP</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Rekening</TableHead>
+                <TableHead className="text-right">Setoran</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {visitor.length > 0 &&
+                visitor.map((visitor) => (
+                  <TableRow key={visitor.no_ktp}>
+                    <TableCell className="font-medium">
+                      {visitor.no_ktp}
+                    </TableCell>
+                    <TableCell>{visitor.name}</TableCell>
+                    <TableCell>{visitor.rekening}</TableCell>
+                    <TableCell className="text-right">
+                      {showFormattedNumber(visitor.setoran)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </Table>
       </div>
     </div>

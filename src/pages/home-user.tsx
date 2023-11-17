@@ -2,43 +2,51 @@ import { Link } from "react-router-dom";
 import banner from "../assets/banner.webp";
 import spin from "../assets/SPINNERV2.svg";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { HiMenuAlt2 } from "react-icons/hi";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Separator } from "@/components/ui/separator";
 
 const HomeUserPage = () => {
   return (
-    <div className="">
-      <nav className="border border-border/40 dark:border-border shadow-custom bg-background fixed w-full">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link to="/home" className="flex items-center">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/2560px-BNI_logo.svg.png"
-              className="h-8 mr-3"
-              alt="BNI Logo"
-            />
-          </Link>
-          <button
-            data-collapse-toggle="navbar-solid-bg"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            aria-controls="navbar-solid-bg"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+    <div className="relative">
+      <div className="flex fixed items-center lg:px-12 pr-6 pl-6 justify-between lg:border-border/25 border-b-border border-b lg:justify-between backdrop-blur-md bg-background/30 z-10 w-full h-14 lg:h-16">
+        <div className="lg:hidden">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="">
+              <div>
+                <HiMenuAlt2 className="w-7 h-7" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-background">
+              <DropdownMenuLabel>Menu</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <Link to="/home">
+                  <DropdownMenuItem>Home</DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator />
+                <Link to={"/generate-qr"}>
+                  <DropdownMenuItem>Play</DropdownMenuItem>
+                </Link>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/2560px-BNI_logo.svg.png"
+          className="h-8 mr-3"
+          alt="BNI Logo"
+        />
+        <div className="flex flex-row gap-5 items-center">
           <div
             className="hidden w-full md:block md:w-auto"
             id="navbar-solid-bg"
@@ -47,7 +55,7 @@ const HomeUserPage = () => {
               <li>
                 <Link
                   to="/home"
-                  className=" block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0"
+                  className=" block py-2 text-foreground pl-3 pr-4 rounded md:bg-transparent md:p-0"
                   aria-current="page"
                 >
                   Home
@@ -56,16 +64,20 @@ const HomeUserPage = () => {
               <li>
                 <Link
                   to="/generate-qr"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#FF6600] md:p-0"
+                  className="block py-2 pl-3 pr-4 text-foreground rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
                 >
                   play
                 </Link>
               </li>
             </ul>
           </div>
+          <div className="flex h-5 items-center space-x-4 text-sm">
+            <Separator orientation="vertical" className="hidden lg:block" />
+            <ModeToggle />
+          </div>
         </div>
-      </nav>
-      <div className="flex lg:w-[100%] w-[90%] mx-auto pt-16">
+      </div>
+      <div className="flex lg:w-[100%] w-[90%] mx-auto lg:pt-16 pt-[4.7rem]">
         <img
           className="lg:w-[100%] flex justify-center rounded-md m-auto object-fill"
           src={banner}
@@ -73,15 +85,15 @@ const HomeUserPage = () => {
         />
       </div>
 
-      <div className="flex mt-40 flex-row items-center justify-center w-[90%] mx-auto mb-32 bg-gradient-to-r from-[#006a78] to-[#00434b] border-border/40 shadow-custom rounded-radius h-[30rem] gap-16">
-        <div className="w-[26rem]">
+      <div className="flex mt-10 lg:mt-40 flex-col lg:flex-row items-center justify-center w-[90%] py-10 mx-auto mb-14 lg:mb-32 bg-gradient-to-r from-[#006a78] to-[#00434b] border-border/40 shadow-custom rounded-radius h-[35rem] gap-10 lg:gap-16">
+        <div className="lg:w-[26rem] w-[16rem]">
           <img src={spin} className="animate-spin-slow" alt="" />
         </div>
-        <div className="flex flex-col gap-3 w-[30rem]">
-          <p className="text-5xl font-extrabold text-primaryforeground">
+        <div className="flex flex-col gap-3 lg:w-[30rem] w-[20rem]">
+          <p className="lg:text-5xl text-4xl text-center lg:text-left font-extrabold text-primaryforeground dark:text-primary">
             Lorem ipsum dolor sit amet.
           </p>
-          <div className="flex gap-3 text-primaryforeground mt-6">
+          <div className="flex gap-3 text-primaryforeground mt-6 lg:mx-0 mx-auto">
             <Link to="/generate-qr">
               <Button
                 size={"lg"}
@@ -92,7 +104,7 @@ const HomeUserPage = () => {
             </Link>
             <Button
               size={"lg"}
-              className="text-primaryforeground bg-transparent border border-border/40 shadow-custom hover:bg-primaryforeground"
+              className="text-primaryforeground dark:text-primary bg-transparent border border-border/40 shadow-custom hover:bg-primaryforeground"
             >
               Tenant
             </Button>

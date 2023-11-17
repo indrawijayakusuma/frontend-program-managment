@@ -50,7 +50,7 @@ const Scanqr = () => {
 
   return (
     <>
-      <div className="mt-14">
+      <div className="mt-20">
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
           Visitors
         </h1>
@@ -59,7 +59,7 @@ const Scanqr = () => {
           <span className="text-slate-500">Visitors</span>
         </div>
       </div>
-      <div className="mt-20 w-full flex flex-col items-center">
+      <div className="mt-14 w-full flex flex-col items-center">
         <p className="lg:hidden text-xl font-medium lg:text-2xl text-center mb-6">
           Scan QR Code
         </p>
@@ -75,7 +75,6 @@ const Scanqr = () => {
           <p className="text-base font-normal text-center">
             Click start to Scan
           </p>
-          {/* <p className="text-center animate-scale">Tap to scan QR code</p> */}
           <Button
             onClick={scanCLickHandler}
             className="mx-auto px-10 text-primaryforeground"
