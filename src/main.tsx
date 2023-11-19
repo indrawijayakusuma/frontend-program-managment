@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/home";
-import ErrorPage from "./pages/error/error";
 import VisitorFormCreatePage from "./pages/visitor/visitorFormCreate";
 import MerchantListPage from "./pages/merchant/merchantList";
 import WinnerPage from "./pages/winner/winnerList";
@@ -14,6 +13,7 @@ import Scanqr from "./pages/scanQr";
 import GenerateQrPage from "./pages/user-view/generate-qr";
 import HomeUserPage from "./pages/user-view/home-user";
 import ReedemCodeListPage from "./pages/redeemCodeList";
+import ErrorPage from "./pages/error/error";
 
 const router = createBrowserRouter([
   {
