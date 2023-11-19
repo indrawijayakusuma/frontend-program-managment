@@ -3,17 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/home";
-import ErrorPage from "./pages/error";
-import VisitorPage from "./pages/visitor";
-import MerchantListPage from "./pages/merchantList";
-import ReedemPage from "./pages/redeemCode";
-import WinnerPage from "./pages/winner";
-import WinnerFormPage from "./pages/winnerForm";
+import ErrorPage from "./pages/error/error";
+import VisitorFormCreatePage from "./pages/visitor/visitorFormCreate";
+import MerchantListPage from "./pages/merchant/merchantList";
+import WinnerPage from "./pages/winner/winnerList";
+import WinnerFormPage from "./pages/winner/winnerForm";
 import { ThemeProvider } from "@/components/theme-provider";
-import VisitorListPage from "./pages/visitorList";
+import VisitorListPage from "./pages/visitor/visitorList";
 import Scanqr from "./pages/scanQr";
-import GenerateQrPage from "./pages/generate-qr";
-import HomeUserPage from "./pages/home-user";
+import GenerateQrPage from "./pages/user-view/generate-qr";
+import HomeUserPage from "./pages/user-view/home-user";
+import ReedemCodeListPage from "./pages/redeemCodeList";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/visitor/create",
-        element: <VisitorPage />,
+        element: <VisitorFormCreatePage />,
       },
       {
         path: "/merchant/list",
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/redeem-code",
-        element: <ReedemPage />,
+        element: <ReedemCodeListPage />,
       },
       {
         path: "/winner",

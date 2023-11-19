@@ -10,7 +10,7 @@ const Scanqr = () => {
   let html5QrCode: Html5Qrcode;
 
   useEffect(() => {
-    document.title = "scan qr-code";
+    document.title = "Scan qr-code";
   }, []);
 
   const scanCLickHandler = () => {
@@ -63,7 +63,7 @@ const Scanqr = () => {
         <p className="lg:hidden text-xl font-medium lg:text-2xl text-center mb-6">
           Scan QR Code
         </p>
-        <div className="flex lg:w-[30%] w-[90%] border dark:border-border border-border/40 py-4 rounded-radius shadow-custom">
+        <div className="flex lg:w-[30%] w-[90%] border border-border/40 py-4 rounded-radius shadow-custom">
           <div className="flex w-[17rem] h-[19rem] justify-center mx-auto rounded-radius relative">
             {scan === 0 && (
               <BsQrCodeScan className="w-[23rem] h-[12rem] my-auto" />
