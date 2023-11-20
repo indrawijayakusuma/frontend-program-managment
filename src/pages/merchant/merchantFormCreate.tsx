@@ -27,9 +27,17 @@ const formSchema = z.object({
   merchantName: z.string().min(2, {
     message: "Merchant Name must be at least 2 characters.",
   }),
-  noBooth: z.number().min(1, {
-    message: "Booth must be fill.",
-  }),
+  noBooth: z.preprocess(
+    (a) => parseInt(z.string().parse(a), 10),
+    z
+      .number({
+        invalid_type_error: "Setoran must be a number.",
+      })
+      .positive()
+      .min(1, {
+        message: "Setoran must be fill.",
+      })
+  ),
   ktp: z
     .string()
     .min(16, {
@@ -61,8 +69,8 @@ const MerchantFormCreatePage = () => {
       no_ktp: ktp,
       name,
       rekening,
-      merchantName,
-      noBooth,
+      merchant_name: merchantName,
+      no_booth: noBooth,
     };
     console.log(data);
     try {
@@ -72,6 +80,7 @@ const MerchantFormCreatePage = () => {
         window.location.reload();
       }, 1000);
     } catch (error) {
+      console.log(error);
       showErrorsMessage("Data dengan NIK tersebut sudah terdaftar!");
     }
   }
