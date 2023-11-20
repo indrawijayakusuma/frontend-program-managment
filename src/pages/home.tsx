@@ -12,7 +12,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { FaUsers } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import { GiTrophyCup } from "react-icons/gi";
-import { AiOutlineDashboard } from "react-icons/ai";
+// import { AiOutlineDashboard } from "react-icons/ai";
 import { MdOutlineStorefront } from "react-icons/md";
 import { HiQrcode } from "react-icons/hi";
 import { BiQrScan } from "react-icons/bi";
@@ -32,14 +32,14 @@ import {
 import { HiMenuAlt2 } from "react-icons/hi";
 
 const menus = [
-  {
-    name: "Dashboard",
-    path: "/",
-    icon: <AiOutlineDashboard className="w-6 h-6" />,
-  },
+  // {
+  //   name: "Dashboard",
+  //   path: "/",
+  //   icon: <AiOutlineDashboard className="w-6 h-6" />,
+  // },
   {
     name: "QR Code Scanner",
-    path: "/scan-qr",
+    path: "/",
     icon: <BiQrScan className="w-6 h-6" />,
   },
   {
@@ -170,7 +170,7 @@ const HomePage = () => {
         )}
       </div>
       <div className="grow w-full relative">
-        <div className="flex items-center pr-8 pl-8 justify-between lg:border-border/25 border-b-border border-b lg:justify-end backdrop-blur-md bg-background/30 z-10 absolute w-full h-14">
+        <div className="flex items-center pr-6 pl-6 justify-between lg:border-border/25 border-b-border border-b lg:justify-end backdrop-blur-md bg-background/30 z-10 absolute w-full h-14">
           <div className="lg:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="">

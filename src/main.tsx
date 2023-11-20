@@ -20,12 +20,12 @@ const router = createBrowserRouter([
     element: <HomePage />,
     errorElement: <ErrorPage />,
     children: [
+      // {
+      //   path: "/",
+      //   element: <h1>home</h1>,
+      // },
       {
         path: "/",
-        element: <h1>home</h1>,
-      },
-      {
-        path: "/scan-qr",
         element: <Scanqr />,
       },
       {
