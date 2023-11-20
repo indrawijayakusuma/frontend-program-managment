@@ -18,6 +18,9 @@ interface Props {
 }
 
 const TableListVisitor: React.FC<Props> = ({ dataTables }) => {
+  console.log("---");
+  console.log(dataTables);
+  console.log("----");
   return (
     <div>
       <div className="flex justify-start pl-5 border-x border-t rounded-t-radius border-border/40 py-5">
@@ -54,9 +57,7 @@ const TableListVisitor: React.FC<Props> = ({ dataTables }) => {
             {dataTables.length > 0 &&
               dataTables.map((visitor) => (
                 <TableRow key={visitor.no_ktp}>
-                  <TableCell className="font-medium">
-                    {visitor.no_ktp}
-                  </TableCell>
+                  <TableCell className="font-medium">{visitor.noKtp}</TableCell>
                   <TableCell>{visitor.name}</TableCell>
                   <TableCell>{visitor.rekening}</TableCell>
                   <TableCell className="text-right">

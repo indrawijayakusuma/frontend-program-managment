@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,7 @@ import { postWinner } from "@/services/winnerService";
 import axios from "axios";
 import { showErrorsMessage } from "@/utils/sweetAlert";
 import { Label } from "@/components/ui/label";
+import { getAllGift } from "@/services/giftService";
 
 const formSchema = z.object({
   gift: z.string({
@@ -46,11 +48,26 @@ const WinnerFormPage = () => {
   }
   const { code = "" } = useParams();
   const [data, setData] = useState<Provider>();
+  const [type, setType] = useState<string>("");
+  const [gift, setGift] = useState<any[]>([]);
 
   useEffect(() => {
     document.title = "Winner";
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    const getGiftsData = async () => {
+      try {
+        const response = (await getAllGift(type)).data;
+        console.log(response.data);
+        setGift(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getGiftsData();
+  }, [type]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,6 +81,7 @@ const WinnerFormPage = () => {
       try {
         const result = (await getCustomerByRedeemCode(code)).data;
         setData(result.data);
+        setType(result.data.type);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           showErrorsMessage(error.response?.data.message, false).then(
@@ -86,13 +104,13 @@ const WinnerFormPage = () => {
     const { gift, media } = values;
     if (data !== undefined) {
       try {
-        console.log(media);
         const formData = new FormData();
         formData.append("image", media);
         formData.append("no_ktp", data.no_ktp);
         formData.append("giftId", gift);
         await postWinner(formData);
       } catch (error) {
+        console.log(error);
         alert("Peserta dengan ktp tersebut sudah pernah menerima hadiah");
       }
     }
@@ -141,20 +159,11 @@ const WinnerFormPage = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-card">
-                        {/* {gift.map((gift) => (
-                        <SelectItem key={gift.id} value={gift.name}>
-                          {gift}
-                        </SelectItem>
-                      ))} */}
-                        <SelectItem className="hover:bg-hover" value="1">
-                          voucer
-                        </SelectItem>
-                        <SelectItem className="hover:bg-hover" value="3">
-                          payung
-                        </SelectItem>
-                        <SelectItem className="hover:bg-hover" value="2">
-                          jam
-                        </SelectItem>
+                        {gift.map((item) => (
+                          <SelectItem key={item?.name} value={item?.id}>
+                            {item?.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormDescription>
