@@ -27,7 +27,7 @@ const ReedemCodeListPage = () => {
     getReedeem();
   }, []);
   return (
-    <DashboardViewLayout title="Visitor">
+    <DashboardViewLayout title="Redeem Code">
       <TableListRedeemCode dataTables={reedeem} />
     </DashboardViewLayout>
   );

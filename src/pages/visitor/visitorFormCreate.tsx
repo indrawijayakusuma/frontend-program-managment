@@ -84,7 +84,7 @@ const VisitorFormCreatePage = () => {
     <div className="flex flex-col gap-10 mb-10 mt-20">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
-          Visitors
+          Visitors Form
         </h1>
         <div className="flex flex-row items-center">
           Dashboard <BsDot className="w-5 h-5 text-slate-500" />

@@ -52,11 +52,11 @@ const Scanqr = () => {
     <>
       <div className="mt-20">
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
-          Visitors
+          Scan QR
         </h1>
         <div className="flex flex-row items-center">
           Dashboard <BsDot className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-500">Visitors</span>
+          <span className="text-slate-500">Scan QR</span>
         </div>
       </div>
       <div className="mt-14 w-full flex flex-col items-center">
