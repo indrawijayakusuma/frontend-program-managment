@@ -182,10 +182,10 @@ const HomePage = () => {
                 <DropdownMenuLabel>Menu</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <Link to="">
+                  {/* <Link to="">
                     <DropdownMenuItem>Dashboard</DropdownMenuItem>
-                  </Link>
-                  <Link to={"/scan-qr"}>
+                  </Link> */}
+                  <Link to={"/"}>
                     <DropdownMenuItem>QR Code Scanner</DropdownMenuItem>
                   </Link>
                 </DropdownMenuGroup>
