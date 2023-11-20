@@ -2,7 +2,6 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { postVisitor } from "@/services/visitorService";
 import {
   Form,
   FormControl,
@@ -16,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import { BsDot } from "react-icons/bs";
 import { showErrorsMessage, showSuccessMessage } from "@/utils/sweetAlert";
+import { postMerchant } from "@/services/merchantService";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -24,18 +24,12 @@ const formSchema = z.object({
   rekening: z.string().min(5, {
     message: "Rekening must be at least 10 characters.",
   }),
-  setoran: z.preprocess(
-    (a) => parseInt(z.string().parse(a), 10),
-    z
-      .number({
-        invalid_type_error: "Setoran must be a number.",
-      })
-      .positive()
-      .max(2147483647, { message: "Setoran must be at most 2,147,483,647 " })
-      .min(1, {
-        message: "Setoran must be at least 1.",
-      })
-  ),
+  merchantName: z.string().min(2, {
+    message: "Merchant Name must be at least 2 characters.",
+  }),
+  noBooth: z.number().min(1, {
+    message: "Booth must be fill.",
+  }),
   ktp: z
     .string()
     .min(16, {
@@ -46,7 +40,7 @@ const formSchema = z.object({
     }),
 });
 
-const VisitorFormCreatePage = () => {
+const MerchantFormCreatePage = () => {
   useEffect(() => {
     document.title = "Visitor-create";
   }, []);
@@ -55,23 +49,25 @@ const VisitorFormCreatePage = () => {
     defaultValues: {
       name: "",
       rekening: "",
-      setoran: undefined,
+      merchantName: "",
+      noBooth: undefined,
       ktp: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { name, rekening, setoran, ktp } = values;
+    const { name, rekening, merchantName, noBooth, ktp } = values;
     const data = {
       no_ktp: ktp,
       name,
       rekening,
-      setoran,
+      merchantName,
+      noBooth,
     };
     console.log(data);
     try {
-      await postVisitor(data);
-      showSuccessMessage("Visitor has been saved");
+      await postMerchant(data);
+      showSuccessMessage("merchant has been saved");
       setInterval(() => {
         window.location.reload();
       }, 1000);
@@ -84,11 +80,11 @@ const VisitorFormCreatePage = () => {
     <div className="flex flex-col gap-10 mb-10 mt-20">
       <div>
         <h1 className="scroll-m-20 text-xl font-bold tracking-tight lg:text-2xl mb-3">
-          Visitors Form
+          Merchant Form
         </h1>
         <div className="flex flex-row items-center">
           Dashboard <BsDot className="w-5 h-5 text-slate-500" />
-          <span className="text-slate-500">Create a New Visitor</span>
+          <span className="text-slate-500">Create a New Merchant</span>
         </div>
       </div>
       <div className="w-[100%]">
@@ -98,7 +94,7 @@ const VisitorFormCreatePage = () => {
               <div className="flex flex-col gap-1 lg:text-left text-center">
                 <p className="text-lg font-bold">Personal Information</p>
                 <p className="text-sm font-medium text-foreground/50">
-                  Input your real name and KTP number..
+                  Input name, KTP, and account number..
                 </p>
               </div>
               <div className="col-span-2 p-6 rounded-radius shadow-custom bg-card flex flex-col gap-6 border border-border/40">
@@ -139,16 +135,6 @@ const VisitorFormCreatePage = () => {
                     </FormItem>
                   )}
                 />
-              </div>
-            </div>
-            <div className="lg:grid lg:grid-cols-3 gap-2">
-              <div className="flex flex-col gap-1 lg:text-left text-center">
-                <p className="text-lg font-bold">Account Information</p>
-                <p className="text-sm font-medium text-foreground/50">
-                  Input your account number and Deposit..
-                </p>
-              </div>
-              <div className="col-span-2 border p-6 rounded-radius shadow-custom bg-card flex flex-col gap-6 border-border/40">
                 <FormField
                   control={form.control}
                   name="rekening"
@@ -169,16 +155,49 @@ const VisitorFormCreatePage = () => {
                     </FormItem>
                   )}
                 />
+              </div>
+            </div>
+            <div className="lg:grid lg:grid-cols-3 gap-2">
+              <div className="flex flex-col gap-1 lg:text-left text-center">
+                <p className="text-lg font-bold">Merchant Information</p>
+                <p className="text-sm font-medium text-foreground/50">
+                  Input your merchant information..
+                </p>
+              </div>
+              <div className="col-span-2 border p-6 rounded-radius shadow-custom bg-card flex flex-col gap-6 border-border/40">
                 <FormField
                   control={form.control}
-                  name="setoran"
+                  name="merchantName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Setoran</FormLabel>
+                      <FormLabel>Merchant Name</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Setoran" {...field} />
+                        <Input
+                          type="text"
+                          placeholder="Merchant Name"
+                          {...field}
+                        />
                       </FormControl>
-                      <FormDescription>Input deposit amount</FormDescription>
+                      <FormDescription>Input merchant name</FormDescription>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="noBooth"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Booth Number</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="appearance-none"
+                          type="number"
+                          placeholder="Booth Number"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>Input booth number</FormDescription>
                       <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
@@ -200,4 +219,4 @@ const VisitorFormCreatePage = () => {
   );
 };
 
-export default VisitorFormCreatePage;
+export default MerchantFormCreatePage;

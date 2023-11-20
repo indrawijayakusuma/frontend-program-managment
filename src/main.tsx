@@ -14,6 +14,8 @@ import Scanqr from "./pages/scanQr";
 import GenerateQrPage from "./pages/user-view/generate-qr";
 import HomeUserPage from "./pages/user-view/home-user";
 import ReedemCodeListPage from "./pages/redeemCodeList";
+import { WinnerCardUser } from "./pages/user-view/winner-card-user";
+import MerchantFormCreatePage from "./pages/merchant/merchantFormCreate";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/merchant/create",
-        element: <h1>merchant create</h1>,
+        element: <MerchantFormCreatePage />,
       },
       {
         path: "/redeem-code",
@@ -65,6 +67,10 @@ const router = createBrowserRouter([
   {
     path: "/winner/:code",
     element: <WinnerFormPage />,
+  },
+  {
+    path: "user/winner/:ktp",
+    element: <WinnerCardUser />,
   },
   {
     path: "/test",

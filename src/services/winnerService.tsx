@@ -17,3 +17,7 @@ export const postWinner = async (data: FormData) => {
 export const getWinner = async () => {
   return await axios.get(`${apiUrl}/winners`);
 };
+
+export const getWinnerByKtp = async (ktp: string) => {
+  return await axios.get(`${apiUrl}/winners/ktp/${ktp}`);
+};

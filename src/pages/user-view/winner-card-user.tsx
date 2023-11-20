@@ -1,9 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { getRedeemCode } from "@/services/redeemCodeService";
-import { useEffect, useState } from "react";
-import QRCode from "react-qr-code";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,45 +11,40 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Separator } from "@/components/ui/separator";
-import { showErrorsMessage } from "@/utils/sweetAlert";
+import { useEffect, useState } from "react";
+import { getWinnerByKtp } from "@/services/winnerService";
 import axios from "axios";
+import { showErrorsMessage } from "@/utils/sweetAlert";
 
-const GenerateQrPage = () => {
-  const [ktp, setKtp] = useState("");
-  const [qrCode, setQrCode] = useState("");
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = e.target as typeof e.target & {
-      ktp: { value: string };
-    };
-    setKtp(target.ktp.value);
-  };
+interface Winner {
+  name: string;
+  image: string;
+  gift: string;
+}
 
-  useEffect(() => {
-    document.title = "Play Game | QR Code";
-    window.scrollTo(0, 0);
-  }, []);
+export const WinnerCardUser = () => {
+  const { ktp = "" } = useParams();
+  const [winner, setWinner] = useState<Winner>();
 
   useEffect(() => {
-    const getCode = async () => {
-      if (ktp) {
-        try {
-          const response = (await getRedeemCode(ktp)).data;
-          const data = response.data;
-          console.log(data);
-          if (data[0].isUsed === true) {
-            window.location.href = `/user/winner/${ktp}`;
-          } else {
-            setQrCode(data[0].code);
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            showErrorsMessage(error.response?.data.message, false);
-          }
+    const getWinner = async () => {
+      try {
+        const response = (await getWinnerByKtp(ktp)).data;
+        const { name, image, gift } = response.data;
+        setWinner({ name, image, gift });
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          showErrorsMessage(error.response?.data.message, false).then(
+            (result) => {
+              if (result.isConfirmed) {
+                window.location.href = "/home";
+              }
+            }
+          );
         }
       }
     };
-    getCode();
+    getWinner();
   }, [ktp]);
 
   return (
@@ -120,44 +110,26 @@ const GenerateQrPage = () => {
       </div>
 
       <div className="flex justify-center min-h-screen items-center">
-        <div className="border px-4 lg:w-[30%] w-[90%] h-full border-border/40 rounded-radius py-10 lg:px-10 shadow-custom">
+        <div className="border px-4 lg:w-[30%] w-[90%] h-full border-border/40 dark:border-border/90 rounded-radius py-9 lg:px-10 shadow-custom">
           <div className="w-full flex-col">
-            <h1 className="scroll-m-20 text-center text-xl font-bold tracking-tight lg:text-2xl mb-1">
-              Scan QR Code
+            <h1 className="scroll-m-20 text-center text-xl font-bold tracking-tight lg:text-4xl mb-6">
+              Winner
             </h1>
-            <p className="font-normal text-center text-base text-slate-500 dark:text-foreground/50">
-              Show this QR code to play the game
+            <div className="mt-5 h-72 w-72 bg-foreground/5 shadow-inner rounded-radius mx-auto flex items-center justify-center">
+              <div
+                className="h-[16rem] w-[16rem] rounded-xl  bg-center bg-cover"
+                style={{ backgroundImage: `url('${winner?.image}')` }}
+              ></div>
+            </div>
+            <h1 className="scroll-m-20 text-center text-xl font-bold tracking-tight lg:text-2xl mt-6">
+              {winner?.name} 🎉
+            </h1>
+            <p className="text-center text-base font-medium text-foreground dark:text-foreground/50">
+              Congratulations you've got an {winner?.gift}
             </p>
-            <div className="mt-5 h-72 w-72 bg-foreground/5  shadow-inner rounded-radius mx-auto">
-              {qrCode && (
-                <QRCode
-                  size={256}
-                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                  value={`/winner/${qrCode}`}
-                  viewBox={`0 0 256 256`}
-                />
-              )}
-            </div>
-            <div className="mt-6">
-              <p className="font-normal text-sm text-slate-500 dark:text-foreground/50 mb-3">
-                Input KTP to get your QR code
-              </p>
-              <form onSubmit={onSubmitHandler} className="flex flex-col gap-3">
-                <Input name="ktp" type="text" placeholder="KTP" />
-                <Button
-                  type="submit"
-                  className="text-primaryforeground"
-                  size={"lg"}
-                >
-                  Submit
-                </Button>
-              </form>
-            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default GenerateQrPage;
