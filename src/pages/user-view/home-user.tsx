@@ -91,7 +91,7 @@ const HomeUserPage = () => {
         </div>
         <div className="flex flex-col gap-3 lg:w-[30rem] w-[20rem]">
           <p className="lg:text-5xl text-4xl text-center lg:text-left font-extrabold text-primaryforeground dark:text-primary">
-            Lorem ipsum dolor sit amet.
+            Get a Chance To Win Exciting Prizes.
           </p>
           <div className="flex gap-3 text-primaryforeground mt-6 lg:mx-0 mx-auto">
             <Link to="/generate-qr">

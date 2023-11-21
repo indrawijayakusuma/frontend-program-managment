@@ -18,8 +18,10 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Separator } from "@/components/ui/separator";
 import { showErrorsMessage } from "@/utils/sweetAlert";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const GenerateQrPage = () => {
+  const navigate = useNavigate();
   const [ktp, setKtp] = useState("");
   const [qrCode, setQrCode] = useState("");
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +45,7 @@ const GenerateQrPage = () => {
           const data = response.data;
           console.log(data);
           if (data[0].isUsed === true) {
-            window.location.href = `/user/winner/${ktp}`;
+            navigate(`/user/winner/${ktp}`);
           } else {
             setQrCode(data[0].code);
           }
@@ -55,7 +57,7 @@ const GenerateQrPage = () => {
       }
     };
     getCode();
-  }, [ktp]);
+  }, [ktp, navigate]);
 
   return (
     <div className="relative">

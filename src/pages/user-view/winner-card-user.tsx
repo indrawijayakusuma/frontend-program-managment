@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { getWinnerByKtp } from "@/services/winnerService";
 import axios from "axios";
 import { showErrorsMessage } from "@/utils/sweetAlert";
+import { useNavigate } from "react-router-dom";
 
 interface Winner {
   name: string;
@@ -25,6 +26,7 @@ interface Winner {
 export const WinnerCardUser = () => {
   const { ktp = "" } = useParams();
   const [winner, setWinner] = useState<Winner>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getWinner = async () => {
@@ -37,7 +39,7 @@ export const WinnerCardUser = () => {
           showErrorsMessage(error.response?.data.message, false).then(
             (result) => {
               if (result.isConfirmed) {
-                window.location.href = "/home";
+                navigate("/home");
               }
             }
           );
@@ -45,7 +47,7 @@ export const WinnerCardUser = () => {
       }
     };
     getWinner();
-  }, [ktp]);
+  }, [ktp, navigate]);
 
   return (
     <div className="relative">

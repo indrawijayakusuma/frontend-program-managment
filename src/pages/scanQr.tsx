@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Html5Qrcode, Html5QrcodeScanType } from "html5-qrcode";
 import { useEffect, useState } from "react";
 import { BsDot, BsQrCodeScan } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const Scanqr = () => {
   const [scan, setScan] = useState(0);
+  const navigate = useNavigate();
 
   let html5QrCode: Html5Qrcode;
 
@@ -16,7 +18,7 @@ const Scanqr = () => {
   const scanCLickHandler = () => {
     html5QrCode = new Html5Qrcode("reader1");
     const qrCodeSuccessCallback = (decodedText: string) => {
-      window.location.href = decodedText;
+      navigate(decodedText);
       html5QrCode
         .stop()
         .then(() => {
