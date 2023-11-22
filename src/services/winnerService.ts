@@ -14,8 +14,10 @@ export const postWinner = async (data: FormData) => {
   });
 };
 
-export const getWinner = async () => {
-  return await axios.get(`${apiUrl}/winners`);
+export const getWinner = async (param: string, page: object) => {
+  return await axios.get(`${apiUrl}/winners`, {
+    params: { search: param, ...page },
+  });
 };
 
 export const getWinnerByKtp = async (ktp: string) => {
