@@ -5,6 +5,8 @@ export const getRedeemCode = async (ktp: string) => {
   return await axios.get(`${apiUrl}/redeem-code/${ktp}`);
 };
 
-export const getAllRedeemCode = async () => {
-  return await axios.get(`${apiUrl}/redeem-code`);
+export const getAllRedeemCode = async (param: string) => {
+  return await axios.get(`${apiUrl}/redeem-code`, {
+    params: { search: param },
+  });
 };

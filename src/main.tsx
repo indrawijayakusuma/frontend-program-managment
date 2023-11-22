@@ -16,6 +16,7 @@ import HomeUserPage from "./pages/user-view/home-user";
 import ReedemCodeListPage from "./pages/redeemCodeList";
 import { WinnerCardUser } from "./pages/user-view/winner-card-user";
 import MerchantFormCreatePage from "./pages/merchant/merchantFormCreate";
+import GiftPage from "./pages/gift";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/winner",
         element: <WinnerListPage />,
+      },
+      {
+        path: "/gift",
+        element: <GiftPage />,
       },
     ],
   },

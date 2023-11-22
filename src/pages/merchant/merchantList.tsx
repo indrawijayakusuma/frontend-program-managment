@@ -1,37 +1,62 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import TableListMerchant from "@/components/fragments/TableListMerchant";
 import { DashboardViewLayout } from "@/components/layout/DashboardViewLayout";
 import { getAllMerchant } from "@/services/merchantService";
 import { useEffect, useState } from "react";
 
 interface Provider {
-  noKtp: string;
-  name: string;
-  rekening: string;
-  merchantName: string;
-  noBooth: number;
+  merchants: Array<any>;
+  totalRows: number;
+  startIndex: number;
+  endIndex: number;
+  totalPage: number;
 }
 
 const MerchantListPage = () => {
-  const [merchant, setMerchant] = useState<Provider[]>([]);
+  const [dataMerchant, setDataMerchant] = useState<Provider>({
+    merchants: [],
+    totalRows: 0,
+    startIndex: 0,
+    endIndex: 0,
+    totalPage: 0,
+  });
+  const [pageControl, setPageControl] = useState(1);
+  const [params, setParams] = useState("");
+  const [limit] = useState(10);
 
   useEffect(() => {
     document.title = "Merchant";
     const getMerchantData = async () => {
       try {
-        const response = (await getAllMerchant()).data;
-        console.log(response.data.merchants);
-        setMerchant(response.data.merchants);
+        const response = (
+          await getAllMerchant(params, { page: pageControl, limit })
+        ).data;
+        setDataMerchant(response.data.merchants);
       } catch (error) {
         console.log(error);
       }
     };
 
     getMerchantData();
-  }, []);
+  }, [params, pageControl, limit]);
+
+  const pageControlHandler = (arrow: string) => {
+    if (arrow === "left") {
+      setPageControl(pageControl - 1);
+    } else {
+      setPageControl(pageControl + 1);
+    }
+  };
 
   return (
     <DashboardViewLayout title="Merchant">
-      <TableListMerchant dataTables={merchant} />
+      <TableListMerchant
+        dataTable={dataMerchant}
+        setParam={setParams}
+        pageControlHandler={pageControlHandler}
+        setPageControl={setPageControl}
+        limit={limit}
+      />
     </DashboardViewLayout>
   );
 };

@@ -30,6 +30,7 @@ import {
   DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu";
 import { HiMenuAlt2 } from "react-icons/hi";
+import { PiGift } from "react-icons/pi";
 
 const menus = [
   // {
@@ -89,6 +90,11 @@ const menus = [
     name: "Winner",
     path: "/winner",
     icon: <GiTrophyCup className="w-6 h-6" />,
+  },
+  {
+    name: "Gift Item",
+    path: "/gift",
+    icon: <PiGift className="w-6 h-6" />,
   },
 ];
 

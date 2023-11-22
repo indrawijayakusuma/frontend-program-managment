@@ -68,7 +68,6 @@ const VisitorFormCreatePage = () => {
       rekening,
       setoran,
     };
-    console.log(data);
     try {
       await postVisitor(data);
       showSuccessMessage("Visitor has been saved");

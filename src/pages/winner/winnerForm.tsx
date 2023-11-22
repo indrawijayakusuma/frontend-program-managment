@@ -28,7 +28,7 @@ import { postWinner } from "@/services/winnerService";
 import axios from "axios";
 import { showErrorsMessage } from "@/utils/sweetAlert";
 import { Label } from "@/components/ui/label";
-import { getAllGift } from "@/services/giftService";
+import { getAllGiftByType } from "@/services/giftService";
 
 const formSchema = z.object({
   gift: z.string({
@@ -59,7 +59,7 @@ const WinnerFormPage = () => {
   useEffect(() => {
     const getGiftsData = async () => {
       try {
-        const response = (await getAllGift(type)).data;
+        const response = (await getAllGiftByType(type)).data;
         console.log(response.data);
         setGift(response.data);
       } catch (error) {

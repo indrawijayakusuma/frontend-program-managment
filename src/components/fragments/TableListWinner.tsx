@@ -23,7 +23,7 @@ const TableListWinner: React.FC<Props> = ({ dataTables }) => {
       <div className="flex justify-start pl-5 border-x border-t rounded-t-radius border-border/40 py-5">
         <Input
           className="lg:w-[30%] w-[60%] py-6 rounded-radius"
-          type="email"
+          type="text"
           placeholder="Search..."
         />
       </div>
