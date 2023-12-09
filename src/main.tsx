@@ -19,6 +19,14 @@ import MerchantFormCreatePage from "./pages/merchant/merchantFormCreate";
 import GiftPage from "./pages/gift";
 import LoginPage from "./pages/auth/login";
 import { ProtectedRoutes } from "./routes/ProtectedRoutes";
+import { registerSW } from "virtual:pwa-register";
+const updateSW = registerSW({
+  onNeedRefresh() {
+    if (confirm("New content available. Reload?")) {
+      updateSW(true);
+    }
+  },
+});
 
 const token = localStorage.getItem("accessToken");
 
