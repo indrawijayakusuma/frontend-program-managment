@@ -99,6 +99,10 @@ const router = createBrowserRouter([
   ...routesForPublic,
   ...(!token ? routesForNotAuthenticatedOnly : []),
   ...routesForAuthenticatedOnly,
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
