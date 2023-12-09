@@ -12,7 +12,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { FaUsers } from "react-icons/fa6";
 import { BsDot } from "react-icons/bs";
 import { GiTrophyCup } from "react-icons/gi";
-// import { AiOutlineDashboard } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { MdOutlineStorefront } from "react-icons/md";
 import { HiQrcode } from "react-icons/hi";
 import { BiQrScan } from "react-icons/bi";
@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { PiGift } from "react-icons/pi";
+import { deleteRefreshToken } from "@/services/authService";
 
 const menus = [
   // {
@@ -103,6 +104,17 @@ const HomePage = () => {
     document.title = "dashboard";
   }, []);
 
+  const logout = async () => {
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+      await deleteRefreshToken({ refreshToken });
+      localStorage.clear();
+      window.location.reload();
+    } catch {
+      console.log("error");
+    }
+  };
+
   return (
     <div className="flex min-h-screen">
       <div className="w-[22%] md:flex flex-col border-r px-5 py-10 gap-1.5 hidden">
@@ -111,7 +123,6 @@ const HomePage = () => {
           className="w-36 mb-8 mx-auto"
           alt="BNI Logo"
         />
-
         {menus.map((menu) =>
           menu.children && menu.children.length > 0 ? (
             <Accordion
@@ -176,7 +187,7 @@ const HomePage = () => {
         )}
       </div>
       <div className="grow w-full relative">
-        <div className="flex items-center pr-6 pl-6 justify-between lg:border-border/25 border-b-border border-b lg:justify-end backdrop-blur-md bg-background/30 z-10 absolute w-full h-14">
+        <div className="flex items-center pr-6 pl-6 justify-between lg:border-border/25 border-b-border border-b lg:justify-between backdrop-blur-md bg-background/30 z-10 absolute w-full h-14">
           <div className="lg:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="">
@@ -233,10 +244,25 @@ const HomePage = () => {
                 <Link to={"/winner"}>
                   <DropdownMenuItem>Winner</DropdownMenuItem>
                 </Link>
+                <DropdownMenuItem onClick={() => logout()}>
+                  Logout
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
           <ModeToggle />
+          <div className="hidden lg:inline">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="border border-border rounded-md p-2">
+                <CgProfile className="h-5 w-5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => logout()}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
         <ScrollArea className="w-full h-[100vh] text-justify lg:px-10 px-5">
           <Outlet />

@@ -1,21 +1,24 @@
 import axios from "axios";
+import axiosJwt from "./api";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const postWinner = async (data: FormData) => {
-  return await axios.post(`${apiUrl}/winners`, data, {
+  let percentCompleted;
+  await axiosJwt.post(`${apiUrl}/winners`, data, {
     onUploadProgress: (progressEvent) => {
-      if (progressEvent.total === null) {
-        const percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
+      if (progressEvent.total !== undefined) {
+        percentCompleted = Math.round(
+          (progressEvent.loaded / progressEvent.total) * 100
         );
-        console.log(percentCompleted);
       }
     },
   });
+
+  return percentCompleted;
 };
 
 export const getWinner = async (param: string, page: object) => {
-  return await axios.get(`${apiUrl}/winners`, {
+  return await axiosJwt.get(`${apiUrl}/winners`, {
     params: { search: param, ...page },
   });
 };

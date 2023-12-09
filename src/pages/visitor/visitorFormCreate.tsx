@@ -13,9 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsDot } from "react-icons/bs";
 import { showErrorsMessage, showSuccessMessage } from "@/utils/sweetAlert";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -47,8 +48,10 @@ const formSchema = z.object({
 });
 
 const VisitorFormCreatePage = () => {
+  const [submite, setSubmite] = useState(false);
   useEffect(() => {
     document.title = "Visitor-create";
+    setSubmite(false);
   }, []);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,6 +73,7 @@ const VisitorFormCreatePage = () => {
     };
     try {
       await postVisitor(data);
+      setSubmite(true);
       showSuccessMessage("Visitor has been saved");
       setInterval(() => {
         window.location.reload();
@@ -185,11 +189,17 @@ const VisitorFormCreatePage = () => {
               </div>
             </div>
             <div className="w-full flex justify-end">
-              <Button
-                type="submit"
-                className="text-primaryforeground py-5 px-10"
-              >
-                Submit
+              <Button type="submit" className="text-primaryforeground">
+                {!submite ? (
+                  "Submit"
+                ) : (
+                  <div className="flex items-center align-middle">
+                    <div className="animate-spin text-xl mr-2">
+                      <BiLoaderAlt />
+                    </div>
+                    prosessing...
+                  </div>
+                )}
               </Button>
             </div>
           </form>

@@ -1,6 +1,6 @@
-import axios from "axios";
+import axiosJwt from "./api";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const getCustomerByRedeemCode = async (redeemCode: string) => {
-  return await axios.get(`${apiUrl}/customers/${redeemCode}`);
+  return await axiosJwt.get(`${apiUrl}/customers/${redeemCode}`);
 };

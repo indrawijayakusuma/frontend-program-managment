@@ -26,9 +26,11 @@ import { useEffect, useState } from "react";
 import { getCustomerByRedeemCode } from "@/services/customerService";
 import { postWinner } from "@/services/winnerService";
 import axios from "axios";
-import { showErrorsMessage } from "@/utils/sweetAlert";
+import { showErrorsMessage, showSuccessMessage } from "@/utils/sweetAlert";
 import { Label } from "@/components/ui/label";
 import { getAllGiftByType } from "@/services/giftService";
+import { Progress } from "@/components/ui/progress";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const formSchema = z.object({
   gift: z.string({
@@ -50,6 +52,7 @@ const WinnerFormPage = () => {
   const [data, setData] = useState<Provider>();
   const [type, setType] = useState<string>("");
   const [gift, setGift] = useState<any[]>([]);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     document.title = "Winner";
@@ -108,13 +111,17 @@ const WinnerFormPage = () => {
         formData.append("image", media);
         formData.append("no_ktp", data.no_ktp);
         formData.append("giftId", gift);
-        await postWinner(formData);
+        const response = (await postWinner(formData)) || 0;
+        setProgress(response);
+        showSuccessMessage("Winner has been saved");
       } catch (error) {
         console.log(error);
         alert("Peserta dengan ktp tersebut sudah pernah menerima hadiah");
       }
     }
-    window.location.href = "/winner";
+    setInterval(() => {
+      window.location.href = "/winner";
+    }, 1000);
   }
 
   return (
@@ -173,7 +180,7 @@ const WinnerFormPage = () => {
                   </FormItem>
                 )}
               />
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full items-center gap-1.5">
                 <FormField
                   control={form.control}
                   name="media"
@@ -197,8 +204,18 @@ const WinnerFormPage = () => {
                   )}
                 />
               </div>
+              {progress > 0 && <Progress value={progress} />}
               <Button type="submit" className="text-primaryforeground">
-                Submit
+                {progress === 0 ? (
+                  "Submit"
+                ) : (
+                  <div className="flex items-center align-middle">
+                    <div className="animate-spin text-xl mr-2">
+                      <BiLoaderAlt />
+                    </div>
+                    prosessing...
+                  </div>
+                )}
               </Button>
             </form>
           </Form>

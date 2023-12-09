@@ -24,6 +24,7 @@ export default {
         card: "hsl(var(--card))",
         background: "hsl(var(--background))",
         primaryforeground: "hsl(var(--primary-foreground))",
+        destructive: "hsl(var(--destructive))",
       },
       boxShadow: {
         'custom': '0 10px 100px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);',

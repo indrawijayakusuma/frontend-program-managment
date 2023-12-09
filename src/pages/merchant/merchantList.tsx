@@ -33,7 +33,13 @@ const MerchantListPage = () => {
         ).data;
         setDataMerchant(response.data.merchants);
       } catch (error) {
-        console.log(error);
+        setDataMerchant({
+          merchants: [],
+          totalRows: 0,
+          startIndex: 0,
+          endIndex: 0,
+          totalPage: 0,
+        });
       }
     };
 

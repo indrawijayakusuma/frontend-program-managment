@@ -19,7 +19,7 @@ export const showSuccessMessage = (message: string) => {
     icon: "success",
     title: `${message}`,
     showConfirmButton: false,
-    timer: 2000,
+    timer: 1000,
     customClass: {
       popup: "bg-background max-w-[90%]",
     },

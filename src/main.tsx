@@ -17,50 +17,12 @@ import ReedemCodeListPage from "./pages/redeemCodeList";
 import { WinnerCardUser } from "./pages/user-view/winner-card-user";
 import MerchantFormCreatePage from "./pages/merchant/merchantFormCreate";
 import GiftPage from "./pages/gift";
+import LoginPage from "./pages/auth/login";
+import { ProtectedRoutes } from "./routes/ProtectedRoutes";
 
-const router = createBrowserRouter([
-  {
-    element: <HomePage />,
-    errorElement: <ErrorPage />,
-    children: [
-      // {
-      //   path: "/",
-      //   element: <h1>home</h1>,
-      // },
-      {
-        path: "/",
-        element: <Scanqr />,
-      },
-      {
-        path: "/visitor/list",
-        element: <VisitorListPage />,
-      },
-      {
-        path: "/visitor/create",
-        element: <VisitorFormCreatePage />,
-      },
-      {
-        path: "/merchant/list",
-        element: <MerchantListPage />,
-      },
-      {
-        path: "/merchant/create",
-        element: <MerchantFormCreatePage />,
-      },
-      {
-        path: "/redeem-code",
-        element: <ReedemCodeListPage />,
-      },
-      {
-        path: "/winner",
-        element: <WinnerListPage />,
-      },
-      {
-        path: "/gift",
-        element: <GiftPage />,
-      },
-    ],
-  },
+const token = localStorage.getItem("accessToken");
+
+const routesForPublic = [
   {
     path: "/home",
     element: <HomeUserPage />,
@@ -70,17 +32,73 @@ const router = createBrowserRouter([
     element: <GenerateQrPage />,
   },
   {
-    path: "/winner/:code",
-    element: <WinnerFormPage />,
-  },
-  {
     path: "user/winner/:ktp",
     element: <WinnerCardUser />,
   },
+];
+
+const routesForAuthenticatedOnly = [
   {
-    path: "/test",
-    element: <h1>test</h1>,
+    element: <ProtectedRoutes />,
+    path: "/",
+    children: [
+      {
+        element: <HomePage />,
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "/",
+            element: <Scanqr />,
+          },
+          {
+            path: "/visitor/list",
+            element: <VisitorListPage />,
+          },
+          {
+            path: "/visitor/create",
+            element: <VisitorFormCreatePage />,
+          },
+          {
+            path: "/merchant/list",
+            element: <MerchantListPage />,
+          },
+          {
+            path: "/merchant/create",
+            element: <MerchantFormCreatePage />,
+          },
+          {
+            path: "/redeem-code",
+            element: <ReedemCodeListPage />,
+          },
+          {
+            path: "/winner",
+            element: <WinnerListPage />,
+          },
+          {
+            path: "/gift",
+            element: <GiftPage />,
+          },
+        ],
+      },
+      {
+        path: "/winner/:code",
+        element: <WinnerFormPage />,
+      },
+    ],
   },
+];
+
+const routesForNotAuthenticatedOnly = [
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+];
+
+const router = createBrowserRouter([
+  ...routesForPublic,
+  ...(!token ? routesForNotAuthenticatedOnly : []),
+  ...routesForAuthenticatedOnly,
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

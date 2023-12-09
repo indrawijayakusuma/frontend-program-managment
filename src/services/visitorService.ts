@@ -1,11 +1,12 @@
-import axios from "axios";
+import axiosJwt from "./api";
 const apiUrl = import.meta.env.VITE_API_URL;
+
 export const getAllVisitor = async (param: string, page: object) => {
-  return await axios.get(`${apiUrl}/visitors`, {
+  return await axiosJwt.get(`${apiUrl}/visitors`, {
     params: { search: param, ...page },
   });
 };
 
 export const postVisitor = async (data: object) => {
-  return await axios.post(`${apiUrl}/visitors`, data);
+  return await axiosJwt.post(`${apiUrl}/visitors`, data);
 };

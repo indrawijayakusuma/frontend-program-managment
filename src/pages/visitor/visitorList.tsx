@@ -32,9 +32,16 @@ const VisitorListPage = () => {
         const response = (
           await getAllVisitor(params, { page: pageControl, limit })
         ).data;
+        console.log(response.data.visitor);
         setDataVisitor(response.data.visitor);
       } catch (error) {
-        console.log(error);
+        setDataVisitor({
+          visitors: [],
+          totalRows: 0,
+          startIndex: 0,
+          endIndex: 0,
+          totalPage: 0,
+        });
       }
     };
 
