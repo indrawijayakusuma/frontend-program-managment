@@ -7,13 +7,14 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      registerType: "autoUpdate",
       workbox: {
         globPatterns: ["**/*"],
       },
       includeAssets: ["**/*"],
       manifest: {
         theme_color: "#171717",
-        background_color: "#e8ebf2",
+        background_color: "222.2 84% 4.9%",
         display: "standalone",
         scope: "/",
         start_url: "/",
