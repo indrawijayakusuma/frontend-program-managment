@@ -10,6 +10,7 @@ interface Provider {
 const GiftPage = () => {
   const [gift, setGift] = useState<Provider[]>([]);
   const [reload, setReload] = useState(false);
+
   useEffect(() => {
     const getAllGiftData = async () => {
       const result = await getAllGift();

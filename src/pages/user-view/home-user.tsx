@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import banner from "../../assets/banner.webp";
 import spin from "../../assets/SPINNERV2.svg";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Separator } from "@/components/ui/separator";
 
 const HomeUserPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative">
       <div className="flex fixed items-center lg:px-12 pr-6 pl-6 justify-between lg:border-border/25 border-b-border border-b lg:justify-between backdrop-blur-md bg-background/30 z-10 w-full h-14 lg:h-16">
@@ -108,6 +109,7 @@ const HomeUserPage = () => {
             >
               Tenant
             </Button>
+            <button onClick={() => navigate("/")}>sffwfw</button>
           </div>
         </div>
       </div>

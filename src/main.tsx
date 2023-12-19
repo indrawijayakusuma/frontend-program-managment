@@ -20,6 +20,8 @@ import GiftPage from "./pages/gift";
 import LoginPage from "./pages/auth/login";
 import { ProtectedRoutes } from "./routes/ProtectedRoutes";
 import { registerSW } from "virtual:pwa-register";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 const updateSW = registerSW({
   onNeedRefresh() {
     if (confirm("New content available. Reload?")) {
@@ -115,8 +117,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );

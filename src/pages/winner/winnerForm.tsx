@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCustomerByRedeemCode } from "@/services/customerService";
 import { postWinner } from "@/services/winnerService";
@@ -53,6 +53,8 @@ const WinnerFormPage = () => {
   const [type, setType] = useState<string>("");
   const [gift, setGift] = useState<any[]>([]);
   const [progress, setProgress] = useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Winner";
@@ -90,18 +92,20 @@ const WinnerFormPage = () => {
           showErrorsMessage(error.response?.data.message, false).then(
             (result) => {
               if (result.isConfirmed) {
-                window.location.href = "/";
+                navigate("/");
+                // window.location.href = "/";
               }
             }
           );
         }
         setInterval(() => {
+          navigate("/");
           window.location.href = "/";
         }, 7500);
       }
     };
     getCode();
-  }, [code]);
+  }, [code, navigate]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { gift, media } = values;
