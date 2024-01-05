@@ -71,9 +71,9 @@ const VisitorFormCreatePage = () => {
       rekening,
       setoran,
     };
+    setSubmite(true);
     try {
       await postVisitor(data);
-      setSubmite(true);
       showSuccessMessage("Visitor has been saved");
       setInterval(() => {
         window.location.reload();

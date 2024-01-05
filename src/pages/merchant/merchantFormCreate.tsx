@@ -75,10 +75,9 @@ const MerchantFormCreatePage = () => {
       merchant_name: merchantName,
       no_booth: noBooth,
     };
-    console.log(data);
+    setSubmite(true);
     try {
       await postMerchant(data);
-      setSubmite(true);
       showSuccessMessage("merchant has been saved");
       setInterval(() => {
         window.location.reload();
