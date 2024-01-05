@@ -52,11 +52,11 @@ const LoginPage = () => {
       username,
       password,
     };
+    setSubmite(true);
     try {
       const result = await login(data);
       localStorage.setItem("accessToken", result.data.data.accessToken);
       localStorage.setItem("refreshToken", result.data.data.refreshToken);
-      setSubmite(true);
       window.location.href = "/visitor/list";
     } catch (error) {
       if (axios.isAxiosError(error)) {
